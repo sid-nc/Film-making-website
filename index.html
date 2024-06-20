@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Film Making Website</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        /* CSS styles here */
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #000; /* Set background color to black */
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Set minimum height of the body to full viewport height */
+            color: #fff; /* Set text color to white */
+            position: relative; /* Position relative for absolute positioning */
+        }
+
+        header, footer {
+            background-color: #806f82; /* Light grey background color */
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            background-image: url('header_background_image.jpg'); /* Add background image for header */
+            background-size: cover; /* Make background image cover the entire header */
+            background-position: center; /* Center the background image */
+        }
+
+        h1 {
+            font-size: 48px; /* Increased font size */
+            color: #000; /* Black color */
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5); /* Add 3D effect */
+        }
+
+        .camera-icon {
+            position: absolute;
+            top: 20px; /* Adjust top position */
+            right: 20px; /* Adjust right position */
+            width: 100px; /* Adjust width */
+            height: 100px; /* Adjust height */
+        }
+
+        main {
+            flex: 1; /* Fill remaining space */
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .icon-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 50px; /* Increased gap between icon containers */
+        }
+
+        .icon-item {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 200px; /* Increased icon container size */
+            height: 200px; /* Increased icon container size */
+            border-radius: 50%;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+            margin: 20px; /* Added margin to create space between icons */
+        }
+
+        .icon-item i {
+            font-size: 36px; /* Increased icon size */
+            color: #212121;
+        }
+
+        .icon-item p {
+            font-size: 18px; /* Increased font size */
+            color: #fff; /* White color */
+            margin-top: 10px; /* Increased margin top */
+            font-family: 'Comic Sans MS', sans-serif; /* Comic Sans MS font */
+        }
+
+        .icon-item a {
+            text-decoration: none;
+            color: #fff; /* White color */
+            transition: background-color 0.3s ease; /* Add transition for smoother effect */
+            padding: 5px 10px; /* Added padding to make hover effect visible */
+            border-radius: 5px; /* Added border radius */
+        }
+
+        .icon-item a:hover {
+            background-color: #fff; /* Change anchor background color on hover */
+            color: #000; /* Change text color on hover */
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #3e8e41;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 50%;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* Different background colors for each circle */
+        .icon-item:nth-of-type(1) {
+            background-color: #FA1870; /* Pink */
+        }
+
+        .icon-item:nth-of-type(2) {
+            background-color: #5d79ff; /* Blue */
+        }
+
+        .icon-item:nth-of-type(3) {
+            background-color: #2677d4; /* Dark Blue */
+        }
+
+        .icon-item:nth-of-type(4) {
+            background-color: #e39530; /* Orange */
+        }
+
+        .icon-item:nth-of-type(5) {
+            background-color: #3cb083; /* Green */
+        }
+
+        footer {
+            background-color: #f8f8f8;
+            color: #212121;/* White background color */
+            margin-top: auto; /* Align to bottom */
+            padding: 20px;
+            background-image: url('footer_background_image.jpg'); /* Add background image for footer */
+            background-size: cover; /* Make background image cover the entire footer */
+            background-position: center; /* Center the background image */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Film Making Website</h1>
+        <img src="data:image/png;base64,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" class="camera-icon" alt="Rolling Camera Icon">
+    </header>
+    <main>
+        <div class="container">
+            <div class="icon-container">
+                <div class="icon-item" onclick = "openNotepad()">
+                    <i class="fas fa-pencil-ruler"></i>
+                    <p>Write</p>
+                </div>
+                <div class="icon-item">
+                    <i class="fas fa-calendar-week"></i>
+                    <p><a href="/previous_page">Plan</a></p>
+                </div>
+                <div class="icon-item">
+                    <i class="fas fa-camera"></i>
+                    <p>Shoot</p>
+                </div>
+            </div>
+            <div class="icon-container">
+                <div class="icon-item" style="background-color: #e39530;">
+                    <i class="far fa-image"></i>
+                    <p><a href="/generate_image">Image gen</a></p>
+                </div>
+                <div class="icon-item" style="  background-color: #3cb083; ">
+                    <i class="far fa-newspaper"></i>
+                    <p><a href="/script_generation_page">Script gen</a></p>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 Film Making Website. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function openNotepad() {
+            // Open a blank page for writing
+            var notepadWindow = window.open('', '_blank');
+            notepadWindow.document.write('<html><head><title>Notepad</title></head><body contenteditable="true" style="font-family: Arial, sans-serif; font-size: 16px;"></body></html>');
+
+            // Function to handle download
+            function download(content, filename) {
+                var element = document.createElement('a');
+                element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(content));
+                element.setAttribute('download', filename);
+
+                element.style.display = 'none';
+                document.body.appendChild(element);
+
+                element.click();
+
+                document.body.removeChild(element);
+            }
+
+            // Event listener for saving the content
+            notepadWindow.document.body.addEventListener('keyup', function (event) {
+                // Save the content when the user presses Ctrl+S or Command+S
+                if ((event.ctrlKey || event.metaKey) && event.keyCode === 83) {
+                    event.preventDefault();
+                    var content = notepadWindow.document.body.innerHTML;
+                    var filename = 'my_text_file.txt';
+                    download(content, filename);
+                }
+            });
+        }
+    </script>
+</body>
+</html>
